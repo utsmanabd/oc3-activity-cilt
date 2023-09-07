@@ -2,7 +2,7 @@ const model = require('../../model/machine-area.model')
 const api = require('../../tools/common')
 
 getAllMachineArea = async (req, res) => {
-    let data = await model.getAll();
+    let data = await model.getQueriedData();
     return api.ok(res, data);
 }
 

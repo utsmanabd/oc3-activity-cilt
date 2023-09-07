@@ -5,7 +5,7 @@ const path = require('path')
 const masterRoutes = require('./master_routes/master.routes');
 // const auth_routes = require('./utility_routes/auth.routes');
 
-const { accessControl } = require('../services/auth.service');
+const { accessControl, verifyToken } = require('../services/auth.service');
 
 const ImageHandler = require('../controller/master_controller/ImageHandlerController');
 
@@ -21,6 +21,6 @@ router.get('/not-found', function(req, res) {
 // router.use('/auth/', auth_routes);
 
 // master data routes usage 
-router.use('/master/', accessControl, masterRoutes);
+router.use('/master/', accessControl, verifyToken, masterRoutes);
 
 module.exports = router;

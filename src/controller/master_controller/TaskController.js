@@ -2,7 +2,7 @@ const model = require('../../model/task.model')
 const api = require('../../tools/common')
 
 getAllTask = async (req, res) => {
-    let data = await model.getAll();
+    let data = await model.getQueriedData();
     return api.ok(res, data);
 }
 
