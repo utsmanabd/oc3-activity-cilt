@@ -6,8 +6,8 @@ insert = async (data) => await cilt("mst_task").insert(data);
 update = async (id, data) => await cilt("mst_task").where("task_id", id).update(data);
 deleteData = async (id) => await cilt("mst_task").where("task_id", id).del()
 
-getQueriedData = async () => await cilt.select(cilt.raw(
-    `mt.task_id, mt.date, ma.name AS area, mp.name AS progress 
+getAllQueried = async () => await cilt.select(cilt.raw(
+    `mt.task_id, ma.area_id, mt.date, ma.name AS area, mp.name AS progress 
     FROM mst_task mt 
     LEFT JOIN mst_area ma ON mt.area_id = ma.area_id 
     LEFT JOIN mst_progress mp ON mt.progress_id = mp.progress_id
@@ -20,5 +20,5 @@ module.exports = {
     insert,
     update,
     deleteData,
-    getQueriedData
+    getAllQueried
 }

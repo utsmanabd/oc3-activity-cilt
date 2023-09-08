@@ -17,6 +17,8 @@ router.delete('/image/:filename', ImageHandlerController.deleteImage)
 // Activity
 router.get('/activity', ActivityController.getAllActivity)
 router.get('/activity/:id', ActivityController.getActivityById)
+router.get('/activity/machine/:id', ActivityController.getActivityByMachineId)
+router.get('/activity/area/:id', ActivityController.getActivityByAreaId)
 router.post('/activity', ActivityController.insertActivity)
 router.put('/activity/:id', ActivityController.updateActivity)
 
@@ -29,12 +31,14 @@ router.put('/area/:id', AreaController.updateArea)
 // Machine Area
 router.get('/machine', MachineAreaController.getAllMachineArea)
 router.get('/machine/:id', MachineAreaController.getMachineAreaById)
+router.get('/machine/area/:id', MachineAreaController.getMachineAreaByAreaId)
 router.post('/machine', MachineAreaController.insertMachineArea)
 router.put('/machine/:id', MachineAreaController.updateMachineArea)
 
 // Task Activity
 router.get('/task-activity', TaskActivityController.getAllTaskActivity)
-router.get('/task-activity/:taskid/:mareaid', TaskActivityController.getTaskActivityById)
+router.get('/task-activity/:id', TaskActivityController.getTaskActivityById)
+router.get('/task-activity/id/:taskid/:mareaid', TaskActivityController.getTaskActivityByTaskIdAndMachineId)
 router.post('/task-activity', TaskActivityController.insertTaskActivity)
 router.put('/task-activity/:id', TaskActivityController.updateTaskActivity)
 

@@ -2,13 +2,22 @@ const model = require('../../model/machine-area.model')
 const api = require('../../tools/common')
 
 getAllMachineArea = async (req, res) => {
-    let data = await model.getQueriedData();
+    let data = await model.getAllQueried();
     return api.ok(res, data);
 }
 
 getMachineAreaById = async (req, res) => {
     if (!isNaN(req.params.id)) {
         let data = await model.getById(req.params.id);
+        return api.ok(res, data);
+    } else {
+        return api.error(res, "Bad Request", 400);
+    }
+}
+
+getMachineAreaByAreaId = async (req, res) => {
+    if (!isNaN(req.params.id)) {
+        let data = await model.getByAreaId(req.params.id);
         return api.ok(res, data);
     } else {
         return api.error(res, "Bad Request", 400);
@@ -39,5 +48,6 @@ module.exports = {
     getMachineAreaById,
     insertMachineArea,
     updateMachineArea,
-    deleteMachineArea
+    deleteMachineArea,
+    getMachineAreaByAreaId
 };
