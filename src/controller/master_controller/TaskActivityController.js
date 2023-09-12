@@ -24,6 +24,15 @@ getTaskActivityByTaskIdAndMachineId = async (req, res) => {
     }
 }
 
+getCountTaskActivityById = async (req, res) => {
+    if (!isNaN(req.params.taskid) && !isNaN(req.params.mareaid)) {
+        let data = await model.getCountTaskActivityById(req.params.taskid, req.params.mareaid);
+        return api.ok(res, data);
+    } else {
+        return api.error(res, "Bad Request", 400);
+    }
+}
+
 insertTaskActivity = async (req, res) => {
     let data = await model.insert(req.body.form_data);
     return api.ok(res, data);
@@ -47,6 +56,7 @@ module.exports = {
     getAllTaskActivity,
     getTaskActivityById,
     getTaskActivityByTaskIdAndMachineId,
+    getCountTaskActivityById,
     insertTaskActivity,
     updateTaskActivity,
     deleteTaskActivity

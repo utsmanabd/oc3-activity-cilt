@@ -14,11 +14,20 @@ getAllQueried = async () => await cilt.select(cilt.raw(
     WHERE mt.is_removed = 0`
 ));
 
+getCountTaskActivityByTaskId = async (id) => await cilt.select(cilt.raw(
+    `mt.date, mta.task_id, mar.name AS area, COUNT(mta.task_activity_id) AS total_activity, COUNT(mta.condition) AS checklist
+    FROM mst_task_activity mta
+    LEFT JOIN mst_task mt ON mta.task_id = mt.task_id
+    LEFT JOIN mst_area mar ON mt.area_id = mar.area_id
+    WHERE mta.task_id = ${id}`
+))
+
 module.exports = {
     getAll,
     getById,
     insert,
     update,
     deleteData,
-    getAllQueried
+    getAllQueried,
+    getCountTaskActivityByTaskId
 }

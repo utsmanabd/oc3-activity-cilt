@@ -15,6 +15,15 @@ getTaskById = async (req, res) => {
     }
 }
 
+getCountTaskActivityByTaskId = async (req, res) => {
+    if (!isNaN(req.params.id)) {
+        let data = await model.getCountTaskActivityByTaskId(req.params.id);
+        return api.ok(res, data);
+    } else {
+        return api.error(res, "Bad Request", 400);
+    }
+}
+
 insertTask = async (req, res) => {
     let data = await model.insert(req.body.form_data);
     return api.ok(res, data);
@@ -37,6 +46,7 @@ deleteTask = async (req, res) => {
 module.exports = {
     getAllTask,
     getTaskById,
+    getCountTaskActivityByTaskId,
     insertTask,
     updateTask,
     deleteTask
