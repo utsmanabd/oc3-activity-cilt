@@ -43,6 +43,15 @@ updateTaskActivity = async (req, res) => {
     return api.ok(res, data);
 }
 
+updateBatchTaskActivity = async (req, res) => {
+    let data = req.body.form_data;
+    data.forEach(element => {
+        model.update(element.id, element.data)
+    });
+    return api.ok(res, data)
+    
+}
+
 deleteTaskActivity = async (req, res) => {
     if (!isNaN(req.params.id)) {
         let data = await model.deleteData(req.params.id)
@@ -59,5 +68,6 @@ module.exports = {
     getCountTaskActivityById,
     insertTaskActivity,
     updateTaskActivity,
+    updateBatchTaskActivity,
     deleteTaskActivity
 };

@@ -2,7 +2,7 @@ const model = require('../../model/activity.model')
 const api = require('../../tools/common')
 
 getAllActivity = async (req, res) => {
-    let data = await model.getAllQueried();
+    let data = await model.getAll();
     return api.ok(res, data);
 }
 

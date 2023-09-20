@@ -23,7 +23,7 @@ getCountTaskActivityById = async (taskId, mAreaId) => await cilt.select(cilt.raw
     LEFT JOIN mst_activity ma ON mta.activity_id = ma.activity_id 
     LEFT JOIN mst_machine_area mma ON ma.m_area_id = mma.m_area_id 
     LEFT JOIN mst_task mt ON mta.task_id = mt.task_id
-    WHERE ma.m_area_id = ${mAreaId} AND mta.task_id = ${taskId} AND mta.is_removed = 0`
+    WHERE ma.m_area_id = ${mAreaId} AND mta.task_id = ${taskId} AND mta.is_removed = 0 AND ma.is_removed = 0`
 ))
 
 module.exports = {

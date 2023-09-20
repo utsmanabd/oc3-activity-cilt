@@ -6,8 +6,9 @@ const storage = (filepath, type) => {
             cb(null, `uploads/${filepath}`);
         },
         filename: (req, file, cb) => {
-            const uniqueSuffix = Date.now()
-            const newFileName = uniqueSuffix + '.' + file.mimetype.split('/')[1]
+            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+            const originalnameWithoutExt = file.originalname.split('.').slice(0, -1).join('.');
+            const newFileName = originalnameWithoutExt + '-' + uniqueSuffix + '.' + file.mimetype.split('/')[1]
             cb(null, `${type}-${newFileName}`);
         }
     });
@@ -23,7 +24,7 @@ const imageFilter = (req, file, cb) => {
   };
 
   const uploadImage = multer({
-    storage: storage(`images/`, `activity`),
+    storage: storage(`images/`, `task_activity-id`),
     fileFilter: imageFilter,
     // limits: {
     //     fileSize: 2 * 1024 * 1024

@@ -12,6 +12,17 @@ uploadImage = async (req, res) => {
     });
 };
 
+uploadMultipleImage = async (req, res) => {
+  const uploadedFiles = req.files.map(file => file.filename)
+  return res
+    .status(200)
+    .json({
+      error: false,
+      message: "File uploaded successfully",
+      uploadedFiles
+    });
+};
+
 getImage = async (req, res) => {
   const filename = req.params.filename;
   const filePath = path.join(__dirname, "../../../uploads/images", filename); // Sesuaikan dengan struktur Anda
@@ -39,4 +50,4 @@ deleteImage = async (req, res) => {
   });
 };
 
-module.exports = { uploadImage, getImage, deleteImage };
+module.exports = { uploadImage, uploadMultipleImage, getImage, deleteImage };
