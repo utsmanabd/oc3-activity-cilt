@@ -67,5 +67,6 @@ router.get('/finding/undone/:id', FindingController.getFindingUndoneActivityByTa
 router.get('/finding/checklist', FindingController.getChecklistPerTaskMachine)
 router.get('/finding/checklist/date/:month/:year', FindingController.getChecklistPerTaskMachineByDate)
 router.get('/finding/checklist/:id', FindingController.getChecklistPerTaskMachineByTaskId)
+router.get('/checklist/category/date/:month/:year', FindingController.getChecklistPerCategoryByDate)
 
 module.exports = router;
