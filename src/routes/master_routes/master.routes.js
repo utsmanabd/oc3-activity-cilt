@@ -64,9 +64,9 @@ router.get('/finding/not-ok/:id', FindingController.getFindingNotOkActivityByTas
 router.get('/finding/undone', FindingController.getFindingUndoneActivity)
 router.get('/finding/undone/date/:month/:year', FindingController.getFindingUndoneActivityByDate)
 router.get('/finding/undone/:id', FindingController.getFindingUndoneActivityByTaskId)
-router.get('/finding/checklist', FindingController.getChecklistPerTaskMachine)
-router.get('/finding/checklist/date/:month/:year', FindingController.getChecklistPerTaskMachineByDate)
-router.get('/finding/checklist/:id', FindingController.getChecklistPerTaskMachineByTaskId)
+router.get('/checklist/area', FindingController.getChecklistPerTaskMachine)
+router.get('/checklist/area/date/:month/:year', FindingController.getChecklistPerTaskMachineByDate)
+router.get('/checklist/area/:id', FindingController.getChecklistPerTaskMachineByTaskId)
 router.get('/checklist/category/date/:month/:year', FindingController.getChecklistPerCategoryByDate)
 
 module.exports = router;

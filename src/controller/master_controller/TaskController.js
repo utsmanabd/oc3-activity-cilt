@@ -16,7 +16,7 @@ getAllTaskByDate = async (req, res) => {
         let data = await model.getAllByDate(month, year);
         if (data.length > 0) {
             return api.ok(res, data);
-        } else return api.error(res, `Couldn't find data on ${month}-${year}`, 404)
+        } else return api.error(res, `Couldn't find data on ${month}-${year}`, 200)
         
     } else {
         return api.error(res, "Bad Request", 400);
