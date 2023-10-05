@@ -36,7 +36,7 @@ const getFindingNotOkActivityByDate = async(req, res) => {
             month = `0${req.params.month}`
         } else month = req.params.month
         let data = await model.getFindingNotOkActivityByDate(month, year);
-        if (data.length > 0) {
+        if (data.length > 0 || data.length == 0) {
             return api.ok(res, data);
         } else return api.error(res, `Couldn't find data on ${month}-${year}`, 404)
         
