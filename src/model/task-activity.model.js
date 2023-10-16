@@ -26,6 +26,8 @@ getCountTaskActivityById = async (taskId, mAreaId) => await cilt.select(cilt.raw
     WHERE ma.m_area_id = ${mAreaId} AND mta.task_id = ${taskId} AND mta.is_removed = 0 AND ma.is_removed = 0`
 ))
 
+updateByTaskId = async (taskId, data) => await cilt("mst_task_activity").where("task_id", taskId).update(data)
+
 module.exports = {
     getAll,
     getById,
@@ -33,5 +35,6 @@ module.exports = {
     update,
     deleteData,
     getByMachineAreaIdAndTaskId,
-    getCountTaskActivityById
+    getCountTaskActivityById,
+    updateByTaskId
 }

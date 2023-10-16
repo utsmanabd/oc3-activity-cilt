@@ -43,6 +43,11 @@ updateTaskActivity = async (req, res) => {
     return api.ok(res, data);
 }
 
+updateTaskActivityByTaskId = async (req, res) => {
+    let data = await model.updateByTaskId(req.params.taskId, req.body.form_data);
+    return api.ok(res, data)
+}
+
 updateBatchTaskActivity = async (req, res) => {
     let data = req.body.form_data;
     data.forEach(element => {
@@ -69,5 +74,6 @@ module.exports = {
     insertTaskActivity,
     updateTaskActivity,
     updateBatchTaskActivity,
-    deleteTaskActivity
+    updateTaskActivityByTaskId,
+    deleteTaskActivity,
 };

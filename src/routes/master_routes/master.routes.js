@@ -45,6 +45,7 @@ router.get('/task-activity/count/:taskid/:mareaid', TaskActivityController.getCo
 router.post('/task-activity', TaskActivityController.insertTaskActivity)
 router.put('/task-activity/:id', TaskActivityController.updateTaskActivity)
 router.post('/task-activity/batch', TaskActivityController.updateBatchTaskActivity)
+router.put('/task-activity/task-id/:taskId', TaskActivityController.updateTaskActivityByTaskId)
 
 // Task Controller
 router.get('/task', TaskController.getAllTask)
