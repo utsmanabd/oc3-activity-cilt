@@ -24,7 +24,7 @@ const getFindingUndoneActivityByTaskId = async (taskId) => await cilt.select('*'
 
 const getChecklistPerTaskMachine = async () => await cilt.select('*').from('checklist_per_task_machine')
 const getChecklistPerTaskMachineByDate = async (month, year) => await cilt.select('*').from('checklist_per_task_machine').where(cilt.raw(`DATE_FORMAT(date, '%m-%Y')`), `${month}-${year}`)
-const getChecklistPerTaskMachineByTaskId = async (taskId) => await cilt.select('*').from('checklist_per_task_machine').where('task_id', `${taskId}`)
+const getChecklistPerTaskMachineById = async (areaId, date) => await cilt.select('*').from('checklist_per_task_machine').where('area_id', `${areaId}`).where('date', `${date}`)
 
 const getChecklistPerCategoryByDate = async(month, year) => await cilt.select(cilt.raw(
     `ta.category, COUNT(ta.condition) AS checklist, COUNT(ta.task_activity_id) AS total_activity 
@@ -45,6 +45,6 @@ module.exports = {
     getFindingUndoneActivityByTaskId,
     getChecklistPerTaskMachine,
     getChecklistPerTaskMachineByDate,
-    getChecklistPerTaskMachineByTaskId,
+    getChecklistPerTaskMachineById,
     getChecklistPerCategoryByDate
 }

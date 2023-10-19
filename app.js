@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.status(200).json({
     status: true,
-    service: "oc3-gateway-api",
+    service: "activity-cilt-api",
   });
 });
 
@@ -28,7 +28,7 @@ app.get("*", (req, res) => {
 const PORT = process.env.PORT || 8800;
 app.listen(PORT, () => {
   console.log(
-    `oc3-gateway-api Service is running on port ${PORT}. ${
+    `activity-cilt-api Service is running on port ${PORT}. ${
       process.env.DEV == "TRUE" ? "<Development Mode>" : ""
     }`
   );

@@ -67,7 +67,7 @@ const getFindingUndoneActivityByDate = async(req, res) => {
             month = `0${req.params.month}`
         } else month = req.params.month
         let data = await model.getFindingUndoneActivityByDate(month, year);
-        if (data.length > 0) {
+        if (data.length > 0 || data.length == 0) {
             return api.ok(res, data);
         } else return api.error(res, `Couldn't find data on ${month}-${year}`, 404)
         
@@ -106,9 +106,16 @@ const getChecklistPerTaskMachineByDate = async(req, res) => {
     }
 }
 
-const getChecklistPerTaskMachineByTaskId = async(req, res) => {
-    if (!isNaN(req.params.id)) {
-        let data = await model.getChecklistPerTaskMachineByTaskId(req.params.id);
+const getChecklistPerTaskMachineById = async(req, res) => {
+    if (!isNaN(req.params.areaid) && !isNaN(req.params.month) && !isNaN(req.params.year)) {
+        let areaId = req.params.areaid
+        let month = `${req.params.month}`
+        let year = `${req.params.year}`
+        console.log(`id: ${areaId}, month: ${month}, year: ${year}`)
+        if (req.params.month < 10) month = `0${req.params.month}`
+        const date = `${month}-${year}`
+        console.log(date)
+        let data = await model.getChecklistPerTaskMachineById(areaId, date);
         return api.ok(res, data);
     } else {
         return api.error(res, "Bad Request", 400);
@@ -143,6 +150,6 @@ module.exports = {
     getFindingUndoneActivityByTaskId,
     getChecklistPerTaskMachine,
     getChecklistPerTaskMachineByDate,
-    getChecklistPerTaskMachineByTaskId,
+    getChecklistPerTaskMachineById,
     getChecklistPerCategoryByDate
 }

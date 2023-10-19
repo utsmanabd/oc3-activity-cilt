@@ -6,7 +6,7 @@ insert = async (data) => await cilt("mst_task").insert(data);
 update = async (id, data) => await cilt("mst_task").where("task_id", id).update(data);
 deleteData = async (id) => await cilt("mst_task").where("task_id", id).del()
 
-getAllByDate = async (month, year) => await cilt.select("*").from("tasks").where(cilt.raw(`DATE_FORMAT(date, '%m-%Y')`), `${month}-${year}`)
+getAllByDate = async (month, year) => await cilt.select("*").from("task_count_by_area").where(`date`, `${month}-${year}`)
 
 getCountTaskActivityByTaskId = async (id) => await cilt.select(cilt.raw(
     `mt.date, mta.task_id, mar.name AS area, COUNT(mta.task_activity_id) AS total_activity, COUNT(mta.condition) AS checklist
