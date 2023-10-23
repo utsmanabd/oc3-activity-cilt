@@ -7,13 +7,14 @@ const MachineAreaController = require('../../controller/master_controller/Machin
 const TaskActivityController = require('../../controller/master_controller/TaskActivityController')
 const TaskController = require('../../controller/master_controller/TaskController')
 
-const { uploadImage } = require('../../services/file-handler.service');
+const { uploadTaskActivityImage, uploadAreaImage } = require('../../services/file-handler.service');
 const ImageHandlerController = require('../../controller/master_controller/ImageHandlerController')
 const FindingController = require('../../controller/master_controller/FindingController')
 
 // Image Handler
-router.post('/image', uploadImage.single('file'), ImageHandlerController.uploadImage)
-router.post('/image/multi', uploadImage.array('files', 100), ImageHandlerController.uploadMultipleImage)
+// router.post('/image', uploadImage.single('file'), ImageHandlerController.uploadImage)
+router.post('/image/area', uploadAreaImage.single('file'), ImageHandlerController.uploadImage)
+router.post('/image/multi', uploadTaskActivityImage.array('files', 100), ImageHandlerController.uploadMultipleImage)
 router.delete('/image/:filename', ImageHandlerController.deleteImage)
 
 // Activity

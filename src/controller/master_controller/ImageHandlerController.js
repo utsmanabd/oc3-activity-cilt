@@ -29,6 +29,12 @@ getImage = async (req, res) => {
   res.sendFile(filePath);
 };
 
+getAreaImage = async (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, "../../../uploads/images/area", filename); // Sesuaikan dengan struktur Anda
+  res.sendFile(filePath);
+};
+
 deleteImage = async (req, res) => {
   const filename = req.params.filename;
   const filePath = path.join(__dirname, "../../../uploads/images", filename);
@@ -50,4 +56,4 @@ deleteImage = async (req, res) => {
   });
 };
 
-module.exports = { uploadImage, uploadMultipleImage, getImage, deleteImage };
+module.exports = { uploadImage, uploadMultipleImage, getImage, getAreaImage, deleteImage };

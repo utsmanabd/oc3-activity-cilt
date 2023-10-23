@@ -11,6 +11,7 @@ const ImageHandler = require('../controller/master_controller/ImageHandlerContro
 
 // get image file
 router.get('/image/:filename', ImageHandler.getImage)
+router.get('/image/area/:filename', ImageHandler.getAreaImage)
 
 // not found route
 router.get('/not-found', function(req, res) {

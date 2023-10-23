@@ -111,10 +111,8 @@ const getChecklistPerTaskMachineById = async(req, res) => {
         let areaId = req.params.areaid
         let month = `${req.params.month}`
         let year = `${req.params.year}`
-        console.log(`id: ${areaId}, month: ${month}, year: ${year}`)
         if (req.params.month < 10) month = `0${req.params.month}`
         const date = `${month}-${year}`
-        console.log(date)
         let data = await model.getChecklistPerTaskMachineById(areaId, date);
         return api.ok(res, data);
     } else {
