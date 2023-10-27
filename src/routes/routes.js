@@ -3,7 +3,7 @@ var router = express.Router();
 const path = require('path')
 
 const masterRoutes = require('./master_routes/master.routes');
-// const auth_routes = require('./utility_routes/auth.routes');
+const authRoutes = require('./utility_routes/auth.routes');
 
 const { accessControl, verifyToken } = require('../services/auth.service');
 
@@ -11,7 +11,6 @@ const ImageHandler = require('../controller/master_controller/ImageHandlerContro
 
 // get image file
 router.get('/image/:filename', ImageHandler.getImage)
-router.get('/image/area/:filename', ImageHandler.getAreaImage)
 
 // not found route
 router.get('/not-found', function(req, res) {
@@ -19,9 +18,9 @@ router.get('/not-found', function(req, res) {
 });
 
 // authentication routes usage 
-// router.use('/auth/', auth_routes);
+router.use('/auth/', authRoutes);
 
 // master data routes usage 
-router.use('/master/', accessControl, verifyToken, masterRoutes);
+router.use('/master/', verifyToken, masterRoutes);
 
 module.exports = router;

@@ -6,15 +6,15 @@ const AreaController = require('../../controller/master_controller/AreaControlle
 const MachineAreaController = require('../../controller/master_controller/MachineAreaController')
 const TaskActivityController = require('../../controller/master_controller/TaskActivityController')
 const TaskController = require('../../controller/master_controller/TaskController')
+const UserController = require('../../controller/master_controller/UserController')
 
-const { uploadTaskActivityImage, uploadAreaImage } = require('../../services/file-handler.service');
+const { uploadImage } = require('../../services/file-handler.service');
 const ImageHandlerController = require('../../controller/master_controller/ImageHandlerController')
 const FindingController = require('../../controller/master_controller/FindingController')
 
 // Image Handler
-// router.post('/image', uploadImage.single('file'), ImageHandlerController.uploadImage)
-router.post('/image/area', uploadAreaImage.single('file'), ImageHandlerController.uploadImage)
-router.post('/image/multi', uploadTaskActivityImage.array('files', 100), ImageHandlerController.uploadMultipleImage)
+router.post('/image/area', uploadImage('area-id').single('file'), ImageHandlerController.uploadImage)
+router.post('/image/multi/task-activity', uploadImage('task_activity-id').array('files', 100), ImageHandlerController.uploadMultipleImage)
 router.delete('/image/:filename', ImageHandlerController.deleteImage)
 
 // Activity
@@ -70,5 +70,11 @@ router.get('/checklist/area', FindingController.getChecklistPerTaskMachine)
 router.get('/checklist/area/date/:month/:year', FindingController.getChecklistPerTaskMachineByDate)
 router.get('/checklist/area/:areaid/:month/:year', FindingController.getChecklistPerTaskMachineById)
 router.get('/checklist/category/date/:month/:year', FindingController.getChecklistPerCategoryByDate)
+
+// Users
+router.get('/users', UserController.getAllUsers)
+router.get('/users/:id', UserController.getUserByNik)
+router.post('/users', UserController.insertUser)
+router.put('/users/:id', UserController.updateUser)
 
 module.exports = router;

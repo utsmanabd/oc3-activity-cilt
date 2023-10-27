@@ -1,6 +1,6 @@
 const multer = require("multer");
 
-const storage = (filepath, type, isOriginalName) => {
+const storage = (filepath, title, isOriginalName = false) => {
   return multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, `uploads/${filepath}`);
@@ -18,7 +18,7 @@ const storage = (filepath, type, isOriginalName) => {
           uniqueSuffix +
           "." +
           file.mimetype.split("/")[1];
-        cb(null, `${type}-${newFileName}`);
+        cb(null, `${title}-${newFileName}`);
       } else cb(null, file.originalname)
     },
   });
@@ -33,17 +33,12 @@ const imageFilter = (req, file, cb) => {
   }
 };
 
-const uploadTaskActivityImage = multer({
-  storage: storage(`images/`, `task_activity-id`, false),
-  fileFilter: imageFilter,
-  // limits: {
-  //     fileSize: 2 * 1024 * 1024
-  // }
-});
+const uploadImage = (title, isOriginalName = false) => {
+  let formattedTitle = title.replace(/[ .]/g, "");
+  return multer({
+    storage: storage(`images/`, `${formattedTitle}`, isOriginalName),
+    fileFilter: imageFilter
+  })
+}
 
-const uploadAreaImage = multer({
-  storage: storage(`images/area`, `area-id`, false),
-  fileFilter: imageFilter,
-});
-
-module.exports = { uploadTaskActivityImage, uploadAreaImage };
+module.exports = { uploadImage };
