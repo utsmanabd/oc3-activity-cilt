@@ -41,6 +41,7 @@ router.put('/machine/:id', MachineAreaController.updateMachineArea)
 // Task Activity
 router.get('/task-activity', TaskActivityController.getAllTaskActivity)
 router.get('/task-activity/:id', TaskActivityController.getTaskActivityById)
+router.get('/task-activity/task-id/:id', TaskActivityController.getTaskActivityByTaskId)
 router.get('/task-activity/id/:taskid/:mareaid', TaskActivityController.getTaskActivityByTaskIdAndMachineId)
 router.get('/task-activity/count/:taskid/:mareaid', TaskActivityController.getCountTaskActivityById)
 router.post('/task-activity', TaskActivityController.insertTaskActivity)
