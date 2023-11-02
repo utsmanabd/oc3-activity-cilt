@@ -4,7 +4,7 @@ const SECRET_KEY = process.env.SECRET_KEY;
 const SALT_ROUNDS = 10
 
 generateToken = (userData) => {
-  return jwt.sign(userData, SECRET_KEY, { expiresIn: '24h' });
+  return jwt.sign(userData, SECRET_KEY, { expiresIn: '2h' });
 };
 
 generateRefreshToken = (userData) => {
@@ -68,15 +68,9 @@ const encryptPassword = async (password) => {
   }
 }
 
-accessControl = (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  next()
-}
-
 module.exports = {
   generateToken,
   verifyToken,
-  accessControl,
   encryptPassword,
   getNewAccessToken,
   generateRefreshToken,

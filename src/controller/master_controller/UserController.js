@@ -34,7 +34,13 @@ insertUser = async (req, res) => {
 }
 
 updateUser = async (req, res) => {
-    let data = await model.update(req.params.id, req.body.form_data);
+    const userId = req.params.id
+    let formData = req.body.form_data
+
+    const hashedPassword = await encryptPassword(formData.password)
+    formData.password = hashedPassword
+
+    let data = await model.updateUser(userId, formData);
     return api.ok(res, data);
 }
 

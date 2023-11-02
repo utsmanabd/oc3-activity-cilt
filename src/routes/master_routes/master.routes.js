@@ -14,6 +14,7 @@ const FindingController = require('../../controller/master_controller/FindingCon
 
 // Image Handler
 router.post('/image/area', uploadImage('area-id').single('file'), ImageHandlerController.uploadImage)
+router.post('/image/user', uploadImage('user-id').single('file'), ImageHandlerController.uploadImage)
 router.post('/image/multi/task-activity', uploadImage('task_activity-id').array('files', 100), ImageHandlerController.uploadMultipleImage)
 router.delete('/image/:filename', ImageHandlerController.deleteImage)
 
