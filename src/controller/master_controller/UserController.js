@@ -44,9 +44,15 @@ updateUser = async (req, res) => {
     return api.ok(res, data);
 }
 
+getAllRole = async (req, res) => {
+    let data = await model.getAllRole();
+    return api.ok(res, data);
+}
+
 module.exports = {
     getAllUsers,
     getUserByNik,
     insertUser,
-    updateUser
+    updateUser,
+    getAllRole
 }

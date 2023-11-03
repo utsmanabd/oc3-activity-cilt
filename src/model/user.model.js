@@ -4,10 +4,12 @@ getAll = async () => await cilt.select('role_id', 'user_id', 'area_id', 'nik', '
 getByNik = async (nik) => await cilt.select('role_id', 'nik', 'user_id', 'area_id', 'name', 'photo', 'role_name', 'role_detail', 'level', 'area').from('users').where('nik', nik)
 insert = async (data) => await cilt('mst_user').insert(data)
 updateUser = async (id, data) => await cilt('mst_user').where('user_id', id).update(data)
+getAllRole = async () => await cilt('*').from("mst_user_role")
 
 module.exports = {
     getAll,
     getByNik,
     insert,
-    updateUser
+    updateUser,
+    getAllRole
 }
