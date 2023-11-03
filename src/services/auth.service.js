@@ -45,7 +45,7 @@ getNewAccessToken = (token, res) => {
 
     if (decoded.data === undefined) {
       return res
-        .status(403)
+        .status(401)
         .json({ error: true, message: "Payload not found." });
     }
 

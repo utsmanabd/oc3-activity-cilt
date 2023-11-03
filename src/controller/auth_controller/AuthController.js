@@ -1,6 +1,7 @@
 const model = require("../../model/auth.model");
 const userModel = require("../../model/user.model")
 const api = require('../../tools/common')
+const SECRET_KEY = process.env.SECRET_KEY;
 const { generateToken, generateRefreshToken, getNewAccessToken, comparePassword, encryptPassword } = require("../../services/auth.service");
 
 login = async (req, res) => {
@@ -63,10 +64,11 @@ register = async (req, res) => {
 
 updateToken = async (req, res) => {
   let refreshToken = req.body.refresh_token;
+  console.log(refreshToken)
 
   if (!refreshToken) {
     return res
-      .status(403)
+      .status(401)
       .json({ error: true, message: "Refresh token not provided." });
   } else {
     getNewAccessToken(refreshToken, res)
