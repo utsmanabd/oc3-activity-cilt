@@ -77,6 +77,7 @@ router.get('/checklist/category/date/:month/:year', FindingController.getCheckli
 router.get('/users', UserController.getAllUsers)
 router.get('/users/roles', UserController.getAllRole)
 router.get('/users/:id', UserController.getUserByNik)
+router.get('/users/is-exists/:nik', UserController.isNIKExists)
 router.post('/users', UserController.insertUser)
 router.put('/users/:id', UserController.updateUser)
 

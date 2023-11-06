@@ -18,14 +18,26 @@ getUserByNik = async (req, res) => {
 
 insertUser = async (req, res) => {
     let formData = req.body.form_data
+
     if (Array.isArray(formData)) {
         for (let data of formData) {
+            const nik = await model.getAllByNik(data.nik)
+            if (nik.length > 0) {
+                return api.error(res, "NIK is already exists!", 200)
+            }
+
             let hashedPassword = await encryptPassword(data.password)
             data.password = hashedPassword
         }
         let data = await model.insert(formData)
         return api.ok(res, data);
     } else {
+        const userNik = await model.getAllByNik(req.body.form_data.nik)
+
+        if (userNik.length > 0) {
+            return api.error(res, "NIK is already exists!", 200)
+        }
+
         let hashedPassword = await encryptPassword(formData.password)
         formData.password = hashedPassword
         let data = await model.insert(formData);
@@ -37,11 +49,22 @@ updateUser = async (req, res) => {
     const userId = req.params.id
     let formData = req.body.form_data
 
-    const hashedPassword = await encryptPassword(formData.password)
-    formData.password = hashedPassword
+    if (formData.password) {
+        const hashedPassword = await encryptPassword(formData.password)
+        formData.password = hashedPassword
+    }
 
     let data = await model.updateUser(userId, formData);
     return api.ok(res, data);
+}
+
+isNIKExists = async (req, res) => {
+    const nik = await model.getAllByNik(req.params.nik)
+    if (nik.length > 0) {
+        return api.error(res, "NIK is already exists!", 200)
+    } else {
+        return api.ok(res, { message: "NIK is available!" })
+    }
 }
 
 getAllRole = async (req, res) => {
@@ -54,5 +77,6 @@ module.exports = {
     getUserByNik,
     insertUser,
     updateUser,
-    getAllRole
+    getAllRole,
+    isNIKExists
 }
