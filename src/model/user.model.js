@@ -5,7 +5,7 @@ getByNik = async (nik) => await cilt.select('role_id', 'nik', 'user_id', 'area_i
 insert = async (data) => await cilt('mst_user').insert(data)
 updateUser = async (id, data) => await cilt('mst_user').where('user_id', id).update(data)
 
-getAllRole = async () => await cilt('*').from("mst_user_role")
+getAllRole = async () => await cilt('*').from("mst_user_role").where("is_removed", 0).orderBy("role_name")
 getAllByNik = async (nik) => await cilt.select("*").from("mst_user").where("nik", nik)
 
 module.exports = {
