@@ -28,6 +28,9 @@ getCountTaskActivityById = async (taskId, mAreaId) => await cilt.select(cilt.raw
     WHERE ma.m_area_id = ${mAreaId} AND mta.task_id = ${taskId} AND mta.is_removed = 0 AND ma.is_removed = 0`
 ))
 
+getCountActivityPeriodByDate = async (year, month) => await cilt.select("periode", "checklist", "total_activity").from("period_activity_month").where("month_year", `${year}-${month}`)
+getCountActivityPeriodByYear = async (year) => await cilt.select("periode", "checklist", "total_activity").from("period_activity_year").where("years", `${year}`)
+
 updateByTaskId = async (taskId, data) => await cilt("mst_task_activity").where("task_id", taskId).update(data)
 
 module.exports = {
@@ -39,5 +42,7 @@ module.exports = {
     getByTaskId,
     getByMachineAreaIdAndTaskId,
     getCountTaskActivityById,
+    getCountActivityPeriodByDate,
+    getCountActivityPeriodByYear,
     updateByTaskId
 }
