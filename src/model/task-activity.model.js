@@ -20,7 +20,7 @@ getByMachineAreaIdAndTaskId = async (taskId, mAreaId) => await cilt.select(cilt.
 ))
 
 getCountTaskActivityById = async (taskId, mAreaId) => await cilt.select(cilt.raw(
-    `mt.date, mta.task_id, mma.name AS machine_area, COUNT(mta.task_activity_id) AS total_activity, COUNT(mta.condition) AS checklist
+    `mt.date, mta.task_id, mma.name AS machine_area, COUNT(mta.task_activity_id) AS total_activity, COUNT(mta.condition) AS checklist, mt.is_three_days
     FROM mst_task_activity mta 
     LEFT JOIN mst_activity ma ON mta.activity_id = ma.activity_id 
     LEFT JOIN mst_machine_area mma ON ma.m_area_id = mma.m_area_id 
