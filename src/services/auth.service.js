@@ -1,7 +1,18 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt')
+const axios = require('axios')
+const https = require('https')
 const SECRET_KEY = process.env.SECRET_KEY;
 const SALT_ROUNDS = 10
+
+const loginAPI = async (username, password) => {
+  let res = await axios.post(process.env.AUTH_URL, {username, password}, {httpsAgent: new https.Agent({ rejectUnauthorized: false })})
+  if (res.status) {
+    return res.data
+  } else {
+    return false
+  }
+}
 
 generateToken = (userData) => {
   return jwt.sign(userData, SECRET_KEY, { expiresIn: '24h' });
@@ -74,5 +85,6 @@ module.exports = {
   encryptPassword,
   getNewAccessToken,
   generateRefreshToken,
-  comparePassword
+  comparePassword,
+  loginAPI
 }
