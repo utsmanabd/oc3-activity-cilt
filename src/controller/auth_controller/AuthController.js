@@ -101,7 +101,7 @@ login = async (req, res) => {
 
     const token = generateToken(payload);
     const refreshToken = generateRefreshToken(payload);
-    res.json({ error: false, token, refreshToken, user: payload.data });
+    res.json({ error: false, token, refreshToken, userData: payload.data });
   } else {
     res.status(401).json({
       error: true,
