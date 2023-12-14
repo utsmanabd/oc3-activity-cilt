@@ -26,8 +26,8 @@ insertUser = async (req, res) => {
                 return api.error(res, "NIK is already exists!", 200)
             }
 
-            let hashedPassword = await encryptPassword(data.password)
-            data.password = hashedPassword
+            // let hashedPassword = await encryptPassword(data.password)
+            // data.password = hashedPassword
         }
         let data = await model.insert(formData)
         return api.ok(res, data);
@@ -38,8 +38,8 @@ insertUser = async (req, res) => {
             return api.error(res, "NIK is already exists!", 200)
         }
 
-        let hashedPassword = await encryptPassword(formData.password)
-        formData.password = hashedPassword
+        // let hashedPassword = await encryptPassword(formData.password)
+        // formData.password = hashedPassword
         let data = await model.insert(formData);
         return api.ok(res, data);
     }
@@ -49,10 +49,10 @@ updateUser = async (req, res) => {
     const userId = req.params.id
     let formData = req.body.form_data
 
-    if (formData.password) {
-        const hashedPassword = await encryptPassword(formData.password)
-        formData.password = hashedPassword
-    }
+    // if (formData.password) {
+    //     const hashedPassword = await encryptPassword(formData.password)
+    //     formData.password = hashedPassword
+    // }
 
     let data = await model.updateUser(userId, formData);
     return api.ok(res, data);

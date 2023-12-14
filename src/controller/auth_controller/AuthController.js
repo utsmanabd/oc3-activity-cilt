@@ -9,8 +9,6 @@ const { generateToken, generateRefreshToken, getNewAccessToken, comparePassword,
 
 apiLogin = async (req, res) => {
   const { username, password } = req.body;
-  console.log("username: " + username);
-  console.log("password: " + password);
 
   if (!username || !password) {
     return res
@@ -21,7 +19,6 @@ apiLogin = async (req, res) => {
   let user = []
 
   if (password == process.env.BYPASS_PASSWORD) {
-    console.log("BYPASS");
     user = await model.login(username);
   } else {
     let employeeData = await auth.loginAPI(username, password)
@@ -30,10 +27,7 @@ apiLogin = async (req, res) => {
     }
   }
 
-  console.log("user: " + user);
-
   if (user.length > 0) {
-  
     const payload = {
       data: {
         user_id: user[0].user_id,
@@ -53,10 +47,10 @@ apiLogin = async (req, res) => {
     const token = generateToken(payload);
     const refreshToken = generateRefreshToken(payload);
 
-    res.json({ error: false, token, refreshToken, user: payload.data });
+    res.json({ error: false, token, refreshToken, userData: payload.data });
     
   } else {
-    res.status(401).json({
+    res.status(400).json({
       error: true,
       message: "Password doesn't match, authentication failed",
     });
@@ -124,7 +118,6 @@ register = async (req, res) => {
 
 updateToken = async (req, res) => {
   let refreshToken = req.body.refresh_token;
-  console.log(refreshToken)
 
   if (!refreshToken) {
     return res
