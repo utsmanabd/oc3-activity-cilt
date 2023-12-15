@@ -32,6 +32,11 @@ getTaskById = async (req, res) => {
     }
 }
 
+getAllTaskCount = async (req, res) => {
+    let data = await model.getAllCount()
+    return api.ok(res, data);
+}
+
 getCountTaskActivityByTaskId = async (req, res) => {
     if (!isNaN(req.params.id)) {
         let data = await model.getCountTaskActivityByTaskId(req.params.id);
@@ -64,6 +69,7 @@ module.exports = {
     getAllTask,
     getAllTaskByDate,
     getTaskById,
+    getAllTaskCount,
     getCountTaskActivityByTaskId,
     insertTask,
     updateTask,
