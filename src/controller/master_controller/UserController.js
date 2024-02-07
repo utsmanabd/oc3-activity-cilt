@@ -58,6 +58,15 @@ updateUser = async (req, res) => {
     return api.ok(res, data);
 }
 
+deleteUser = async (req, res) => {
+    if (!isNaN(req.params.id)) {
+        let data = await model.deleteUser(req.params.id)
+        return api.ok(res, data)
+    } else {
+        return api.error(res, 'Bad Request', 400)
+    }
+}
+
 isNIKExists = async (req, res) => {
     const nik = await model.getAllByNik(req.params.nik)
     if (nik.length > 0) {
@@ -77,6 +86,7 @@ module.exports = {
     getUserByNik,
     insertUser,
     updateUser,
+    deleteUser,
     getAllRole,
     isNIKExists
 }

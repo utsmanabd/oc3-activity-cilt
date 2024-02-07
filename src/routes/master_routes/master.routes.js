@@ -82,5 +82,6 @@ router.get('/users/:id', UserController.getUserByNik)
 router.get('/users/is-exists/:nik', UserController.isNIKExists)
 router.post('/users', UserController.insertUser)
 router.put('/users/:id', UserController.updateUser)
+router.delete('/users/:id', UserController.deleteUser)
 
 module.exports = router;
