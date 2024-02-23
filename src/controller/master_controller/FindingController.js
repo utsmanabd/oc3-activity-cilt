@@ -45,6 +45,21 @@ const getFindingNotOkActivityByDate = async(req, res) => {
     }
 }
 
+const getFindingNotOkActivityByDateRange = async (req, res) => {
+    try {
+        const fromDate = req.query.from || null
+        const toDate = req.query.to || null
+        if (fromDate && toDate) {
+            let data = await model.getFindingNotOkActivityByDateRange(fromDate, toDate)
+            return api.ok(res, data)
+        } else {
+            return api.ok(res, [])
+        }
+    } catch (err) {
+        api.catchError(res, err)
+    }
+}
+
 const getFindingNotOkActivityByTaskId = async(req, res) => {
     if (!isNaN(req.params.id)) {
         let data = await model.getFindingNotOkActivityByTaskId(req.params.id);
@@ -75,6 +90,22 @@ const getFindingUndoneActivityByDate = async(req, res) => {
         return api.error(res, "Bad Request", 400);
     }
 }
+
+const getFindingUndoneActivityByDateRange = async(req, res) => {
+    try {
+        const fromDate = req.query.from || null
+        const toDate = req.query.to || null
+        if (fromDate && toDate) {
+            let data = await model.getFindingUndoneActivityByDateRange(fromDate, toDate)
+            return api.ok(res, data)
+        } else {
+            return api.ok(res, [])
+        }
+    } catch (err) {
+        api.catchError(res, err)
+    }
+}
+
 const getFindingUndoneActivityByTaskId = async(req, res) => {
     if (!isNaN(req.params.id)) {
         let data = await model.getFindingUndoneActivityByTaskId(req.params.id);
@@ -120,6 +151,22 @@ const getChecklistPerTaskMachineById = async(req, res) => {
     }
 }
 
+const getChecklistPerTaskMachineByIdRange = async (req, res) => {
+    try {
+        const areaId = parseInt(req.params.areaid) || 0
+        const fromDate = req.query.from || null
+        const toDate = req.query.to || null
+        if (fromDate && toDate) {
+            let data = await model.getChecklistPerTaskMachineByIdRange(areaId, fromDate, toDate)
+            return api.ok(res, data)
+        } else {
+            return api.ok(res, [])
+        }
+    } catch (err) {
+        api.catchError(res, err)
+    }
+}
+
 const getChecklistPerCategoryByDate = async(req, res) => {
     if (!isNaN(req.params.month) && !isNaN(req.params.year)) {
         let month = ``
@@ -137,17 +184,36 @@ const getChecklistPerCategoryByDate = async(req, res) => {
     }
 }
 
+const getChecklistPerCategoryByDateRange = async(req, res) => {
+    try {
+        const fromDate = req.query.from || null
+        const toDate = req.query.to || null
+        if (fromDate && toDate) {
+            let data = await model.getChecklistPerCategoryByDateRange(fromDate, toDate)
+            return api.ok(res, data)
+        } else {
+            return api.ok(res, [])
+        }
+    } catch (err) {
+        api.catchError(res, err)
+    }
+}
+
 module.exports = {
     getFindingCount,
     getFindingCountByDate,
     getFindingNotOkActivity,
     getFindingNotOkActivityByDate,
+    getFindingNotOkActivityByDateRange,
     getFindingNotOkActivityByTaskId,
     getFindingUndoneActivity,
     getFindingUndoneActivityByDate,
+    getFindingUndoneActivityByDateRange,
     getFindingUndoneActivityByTaskId,
     getChecklistPerTaskMachine,
     getChecklistPerTaskMachineByDate,
     getChecklistPerTaskMachineById,
-    getChecklistPerCategoryByDate
+    getChecklistPerTaskMachineByIdRange,
+    getChecklistPerCategoryByDate,
+    getChecklistPerCategoryByDateRange
 }

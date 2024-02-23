@@ -6,7 +6,7 @@ getAllTask = async (req, res) => {
     return api.ok(res, data);
 }
 
-getAllTaskByDate = async (req, res) => {
+const getAllTaskByDate = async (req, res) => {
     if (!isNaN(req.params.month) && !isNaN(req.params.year)) {
         let month = ``
         let year = `${req.params.year}`
@@ -20,6 +20,22 @@ getAllTaskByDate = async (req, res) => {
         
     } else {
         return api.error(res, "Bad Request", 400);
+    }
+}
+
+const getAllTaskByDateRange = async (req, res) => {
+    try {
+        const fromDate = req.query.from || null
+        const toDate = req.query.to || null
+
+        if (fromDate && toDate) {
+            let data = await model.getAllByDateRange(fromDate, toDate)
+            return api.ok(res, data)
+        } else {
+            return api.ok(res, [])
+        }
+    } catch (err) {
+        return api.catchError(res, err)
     }
 }
 
@@ -68,6 +84,7 @@ deleteTask = async (req, res) => {
 module.exports = {
     getAllTask,
     getAllTaskByDate,
+    getAllTaskByDateRange,
     getTaskById,
     getAllTaskCount,
     getCountTaskActivityByTaskId,

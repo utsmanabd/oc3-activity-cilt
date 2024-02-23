@@ -41,6 +41,7 @@ router.put('/machine/:id', MachineAreaController.updateMachineArea)
 
 // Task Activity
 router.get('/task-activity', TaskActivityController.getAllTaskActivity)
+router.get('/task-activity/period', TaskActivityController.getCountActivityPeriodByDateRange) // Week
 router.get('/task-activity/:id', TaskActivityController.getTaskActivityById)
 router.get('/task-activity/task-id/:id', TaskActivityController.getTaskActivityByTaskId)
 router.get('/task-activity/id/:taskid/:mareaid', TaskActivityController.getTaskActivityByTaskIdAndMachineId)
@@ -54,6 +55,7 @@ router.put('/task-activity/task-id/:taskId', TaskActivityController.updateTaskAc
 // Task Controller
 router.get('/task', TaskController.getAllTask)
 router.get('/task/count', TaskController.getAllTaskCount)
+router.get('/task/date', TaskController.getAllTaskByDateRange) // Week
 router.get('/task/date/:month/:year', TaskController.getAllTaskByDate)
 router.get('/task/:id', TaskController.getTaskById)
 router.get('/task/count/:id', TaskController.getCountTaskActivityByTaskId)
@@ -63,15 +65,19 @@ router.delete('/task/:id', TaskController.deleteTask)
 
 // Finding
 router.get('/finding', FindingController.getFindingCount)
+router.get('/finding/not-ok/date', FindingController.getFindingNotOkActivityByDateRange) // Week
+router.get('/checklist/category/date', FindingController.getChecklistPerCategoryByDateRange) // Week
 router.get('/finding/date/:month/:year', FindingController.getFindingCountByDate)
 router.get('/finding/not-ok', FindingController.getFindingNotOkActivity)
 router.get('/finding/not-ok/date/:month/:year', FindingController.getFindingNotOkActivityByDate)
 router.get('/finding/not-ok/:id', FindingController.getFindingNotOkActivityByTaskId)
 router.get('/finding/undone', FindingController.getFindingUndoneActivity)
+router.get('/finding/undone/date', FindingController.getFindingUndoneActivityByDateRange) // Week
 router.get('/finding/undone/date/:month/:year', FindingController.getFindingUndoneActivityByDate)
 router.get('/finding/undone/:id', FindingController.getFindingUndoneActivityByTaskId)
 router.get('/checklist/area', FindingController.getChecklistPerTaskMachine)
 router.get('/checklist/area/date/:month/:year', FindingController.getChecklistPerTaskMachineByDate)
+router.get('/checklist/area/:areaid', FindingController.getChecklistPerTaskMachineByIdRange) // Week
 router.get('/checklist/area/:areaid/:month/:year', FindingController.getChecklistPerTaskMachineById)
 router.get('/checklist/category/date/:month/:year', FindingController.getChecklistPerCategoryByDate)
 

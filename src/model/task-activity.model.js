@@ -28,7 +28,20 @@ getCountTaskActivityById = async (taskId, mAreaId) => await cilt.select(cilt.raw
     WHERE ma.m_area_id = ${mAreaId} AND mta.task_id = ${taskId} AND mta.is_removed = 0 AND ma.is_removed = 0`
 ))
 
-getCountActivityPeriodByDate = async (year, month) => await cilt.select("periode", "checklist", "total_activity").from("period_activity_month").where("month_year", `${year}-${month}`)
+getCountActivityPeriodByDate = async (year, month) => await cilt.select("periode", "checklist", "total_activity").from("period_activity_month").where("month_year", `${year}-${month}`) // TODO: Week Filter
+
+const getCountActivityPeriodByDateRange = async (fromDate, toDate) =>
+    await cilt('mst_task_activity as mta')
+    .select('ma.periode', cilt.raw('sum((CASE WHEN (mta.condition = 1) THEN 1 ELSE 0 END)) as checklist'))
+    .count('mta.task_activity_id as total_activity')
+    .leftJoin('mst_activity as ma', 'mta.activity_id', 'ma.activity_id')
+    .leftJoin('mst_task as mt', 'mta.task_id', 'mt.task_id')
+    .where('ma.is_removed', 0)
+    .andWhere('mta.is_removed', 0)
+    .andWhereBetween('mt.date', [`${fromDate}`, `${toDate}`]) // yyyy-mm-dd
+    .groupBy("ma.periode");
+  
+
 getCountActivityPeriodByYear = async (year) => await cilt.select("periode", "checklist", "total_activity").from("period_activity_year").where("years", `${year}`)
 
 updateByTaskId = async (taskId, data) => await cilt("mst_task_activity").where("task_id", taskId).update(data)
@@ -43,6 +56,7 @@ module.exports = {
     getByMachineAreaIdAndTaskId,
     getCountTaskActivityById,
     getCountActivityPeriodByDate,
+    getCountActivityPeriodByDateRange,
     getCountActivityPeriodByYear,
     updateByTaskId
 }

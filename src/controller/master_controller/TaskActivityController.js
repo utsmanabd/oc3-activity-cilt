@@ -42,7 +42,7 @@ getCountTaskActivityById = async (req, res) => {
     }
 }
 
-getCountActivityPeriodByDate = async (req, res) => {
+const getCountActivityPeriodByDate = async (req, res) => {
     let month = `${req.params.month}`
     let year = `${req.params.year}`
     
@@ -58,6 +58,21 @@ getCountActivityPeriodByDate = async (req, res) => {
     }
 
     return api.error(res, "Bad request", 400)
+}
+
+const getCountActivityPeriodByDateRange = async (req, res) => {
+    try {
+        const fromDate = req.query.from || null
+        const toDate = req.query.to || null
+        if (fromDate && toDate) {
+            let data = await model.getCountActivityPeriodByDateRange(fromDate, toDate)
+            return api.ok(res, data)
+        } else {
+            return api.ok(res, [])
+        }
+    } catch (err) {
+        api.catchError(res, err)
+    }
 }
 
 insertTaskActivity = async (req, res) => {
@@ -104,5 +119,6 @@ module.exports = {
     updateBatchTaskActivity,
     updateTaskActivityByTaskId,
     deleteTaskActivity,
-    getCountActivityPeriodByDate
+    getCountActivityPeriodByDate,
+    getCountActivityPeriodByDateRange
 };
