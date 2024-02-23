@@ -56,6 +56,7 @@ router.put('/task-activity/task-id/:taskId', TaskActivityController.updateTaskAc
 router.get('/task', TaskController.getAllTask)
 router.get('/task/count', TaskController.getAllTaskCount)
 router.get('/task/date', TaskController.getAllTaskByDateRange) // Week
+router.get('/task/count/:month/:year', TaskController.getAllTaskCountByDate) // Week
 router.get('/task/date/:month/:year', TaskController.getAllTaskByDate)
 router.get('/task/:id', TaskController.getTaskById)
 router.get('/task/count/:id', TaskController.getCountTaskActivityByTaskId)

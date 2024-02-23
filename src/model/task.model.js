@@ -25,6 +25,7 @@ const getAllByDateRange = async (fromDate, toDate) =>
   
 
 getAllCount = async () => await cilt.select("*").from("task_count")
+const getCountByDate = async (month, year) => await cilt("task_count").select("*").where(cilt.raw(`DATE_FORMAT(date, '%m-%Y') = '${month}-${year}'`)) // Filter Week
 
 getCountTaskActivityByTaskId = async (id) => await cilt.select(cilt.raw(
     `mt.date, mta.task_id, mar.name AS area, COUNT(mta.task_activity_id) AS total_activity, COUNT(mta.condition) AS checklist
@@ -41,6 +42,7 @@ module.exports = {
     update,
     deleteData,
     getAllCount,
+    getCountByDate,
     getAllByDate,
     getAllByDateRange,
     getCountTaskActivityByTaskId,

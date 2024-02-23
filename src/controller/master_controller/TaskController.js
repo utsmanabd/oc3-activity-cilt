@@ -53,6 +53,19 @@ getAllTaskCount = async (req, res) => {
     return api.ok(res, data);
 }
 
+const getAllTaskCountByDate = async (req, res) => {
+    if (!isNaN(req.params.month) && !isNaN(req.params.year)) {
+        let month = ''
+        if (req.params.month < 10) {
+            month = `0${req.params.month}`
+        } else month = req.params.month
+        let data = await model.getCountByDate(month, req.params.year);
+        return api.ok(res, data);
+    } else {
+        return api.error(res, "Bad Request", 400);
+    }
+}
+
 getCountTaskActivityByTaskId = async (req, res) => {
     if (!isNaN(req.params.id)) {
         let data = await model.getCountTaskActivityByTaskId(req.params.id);
@@ -87,6 +100,7 @@ module.exports = {
     getAllTaskByDateRange,
     getTaskById,
     getAllTaskCount,
+    getAllTaskCountByDate,
     getCountTaskActivityByTaskId,
     insertTask,
     updateTask,
