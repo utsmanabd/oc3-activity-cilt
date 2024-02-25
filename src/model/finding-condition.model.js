@@ -17,12 +17,9 @@ const getAreaCountByDate = async (month, year) => await cilt.select(cilt.raw(
 const getFindingNotOkActivity = async () => await cilt.select('*').from('finding_not_ok_activity')
 const getFindingNotOkActivityByDate = async (month, year) => await cilt.select('*').from('finding_not_ok_activity').where('month', `${month}`).where('year', `${year}`) // TODO: Week Filter
 const getFindingNotOkActivityByDateRange = async (fromDate, toDate) =>
-    await cilt('mst_task_activity as mta')
-    .count('mta.condition as condition_not_ok')
-    .leftJoin('mst_task as mt', 'mta.task_id', 'mt.task_id')
-    .where('mta.condition', 0)
-    .andWhere('mta.is_removed', 0)
-    .andWhereBetween('mt.date', [`${fromDate}`, `${toDate}`]);
+    await cilt('finding_not_ok_activity')
+    .select('*')
+    .whereBetween('date', [`${fromDate}`, `${toDate}`]);
 const getFindingNotOkActivityByTaskId = async (taskId) => await cilt.select('*').from('finding_not_ok_activity').where('task_id', `${taskId}`)
 
 const getFindingUndoneActivity = async () => await cilt.select('*').from('finding_undone_activity')
