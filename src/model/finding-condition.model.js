@@ -14,18 +14,19 @@ const getAreaCountByDate = async (month, year) => await cilt.select(cilt.raw(
     GROUP BY mt.area_id;`
 ))
 
-const getFindingNotOkActivity = async () => await cilt.select('*').from('finding_not_ok_activity')
+const getFindingNotOkActivity = async () => await cilt.select('*').from('finding_not_ok_activity').orderBy('updated_at', 'asc').orderBy('activity_id')
 const getFindingNotOkActivityByDate = async (month, year) => await cilt.select('*').from('finding_not_ok_activity').where('month', `${month}`).where('year', `${year}`) // TODO: Week Filter
 const getFindingNotOkActivityByDateRange = async (fromDate, toDate) =>
     await cilt('finding_not_ok_activity')
     .select('*')
-    .whereBetween('date', [`${fromDate}`, `${toDate}`]);
+    .whereBetween('date', [`${fromDate}`, `${toDate}`])
+    .orderBy('updated_at', 'asc')
 const getFindingNotOkActivityByTaskId = async (taskId) => await cilt.select('*').from('finding_not_ok_activity').where('task_id', `${taskId}`)
 
 const getFindingUndoneActivity = async () => await cilt.select('*').from('finding_undone_activity')
 const getFindingUndoneActivityByDate = async (month, year) => await cilt.select('*').from('finding_undone_activity').where('month', `${month}`).where('year', `${year}`)  // TODO: Week Filter
 const getFindingUndoneActivityByDateRange = async (fromDate, toDate) =>
-    await cilt.select('*').from('finding_undone_activity').whereBetween('date', [`${fromDate}`, `${toDate}`])
+    await cilt.select('*').from('finding_undone_activity').whereBetween('date', [`${fromDate}`, `${toDate}`]).orderBy('date', 'desc')
 const getFindingUndoneActivityByTaskId = async (taskId) => await cilt.select('*').from('finding_undone_activity').where('task_id', `${taskId}`)
 
 const getChecklistPerTaskMachine = async () => await cilt.select('*').from('checklist_per_task_machine')
